@@ -34,18 +34,17 @@ consumer.subscriptions.create("OrderScreenChannel", {
 const completeOrderItem = (order) => {
   const orderId = order.id;
 
-  let endTime = new Date().getTime();
-  const startTime = $('#list-item-1').data().time;
+  const endTime = new Date().getTime();
+  const startTime = $('#list-item-' + orderId).data().time;
 
   const elapsed = (endTime - startTime) / 1000;
 
-  console.log(orderId)
   $("#list-item-" + orderId).children()[0].innerText = "Completed. Took " + elapsed + " seconds for completion";
 }
 
 const createOrderItem = (order) => {
   const orderId = order.id;
   const orderName = order.name;
-  let time = new Date().getTime();
+  const time = new Date().getTime();
   return "<li id='list-item-" + orderId + "' data-time=" + time + ">Order: " + orderName + " Status:  <span>Pending</span></li>";
 }
