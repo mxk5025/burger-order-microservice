@@ -1,0 +1,7 @@
+<h1>Order Placement Screen</h1>
+
+<%= form_for(@order, "/orders/receive_completed", method: "post", remote: true) do %>
+  <%= label_tag(:id, "Message Id") %>
+  <%= text_field_tag(:id) %>
+  <%= submit_tag("Place Order") %>
+<% end %>
