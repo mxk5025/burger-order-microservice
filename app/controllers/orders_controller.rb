@@ -5,16 +5,22 @@ class OrdersController < ApplicationController
   end
 
   def create
-    # Here we would submit to our SNS topic
-    # Amazon::SNS.send()
-
-    # Set the instance variable back to a new order so another may be created
-    @order = Order.new
-
     response_hash = {
       action: 'order_placed',
       order: order_params
     }
+
+    sns = Aws::SNS::Resource.new(
+      region: 'us-east-2',
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    )
+
+    topic = sns.topic(ENV['AWS_SNS_ARN'])
+
+    topic.publish({
+      message: order_params.to_s
+    })
 
     # Tell the channel an order has been placed
     ActionCable.server.broadcast 'order_screen_channel', content: response_hash
