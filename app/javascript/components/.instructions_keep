@@ -1,0 +1,8 @@
+To use react components:
+1. Create a react component in this directory or subdirectory
+2. In the views .html.erb file, insert the component as follows:
+<%= react_component("React_Component_Name", {propName: "propValue"}) %>
+
+Notes:
+1. Since this is Rails v6, the <%= javascript_pack_tag 'application' %> is
+not necessary in the .html.erb file.
