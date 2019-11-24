@@ -1,12 +1,16 @@
-<h1>Order Placement Screen</h1>
-
-<%= form_for(@order, remote: true) do |f| %>
-  <%= f.label(:name, "Order name") %>
-  <%= f.text_field(:name) %>
-  <%= f.hidden_field(:id, value: 1) %>
-  <%= f.submit("Place Order") %>
-<% end %>
-
-<h3>Orders placed</h3>
-<ul id="orders-list">
-</ul>
+<%= react_component("Navigation") %>
+<div class="page-container">
+  <div class="form-panel">
+    <%= react_component("Header") %>
+    <%= form_for(@order, remote: true) do |f| %>
+      <%= f.label(:name, "Order name") %>
+      <%= f.text_field(:name) %>
+      <%= f.hidden_field(:id, value: 1) %>
+      <%= f.submit("Place Order") %>
+    <% end %>
+  </div>
+  <div class="results-panel">
+    <%= react_component("Orders", {:style => "grid-area: Orders"}) %>
+    <%= react_component("ServiceLog", {:style => "grid-area: ServiceLog"}) %>
+  </div>
+</div>
