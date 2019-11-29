@@ -19,7 +19,7 @@ consumer.subscriptions.create("OrderScreenChannel", {
       $('#new_order').trigger('reset');
 
       // Update the Order Id for next order
-      let newId = parseInt($('#order_id').val()) + 1;
+      let newId = data.content.next_id
       $('#order_id').val(newId);
 
       // Add the Order to the Placed list

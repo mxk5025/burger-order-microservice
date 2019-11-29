@@ -5,7 +5,7 @@
     <%= form_for(@order, remote: true) do |f| %>
       <%= f.label(:name, "Order name") %>
       <%= f.text_field(:name) %>
-      <%= f.hidden_field(:id, value: 1) %>
+      <%= f.hidden_field(:id, value: @initial_order_id) %>
       <%= f.submit("Place Order") %>
     <% end %>
   </div>

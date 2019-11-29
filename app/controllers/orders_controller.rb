@@ -2,12 +2,14 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :receive_completed
   def show
     @order = Order.new
+    @initial_order_id = SecureRandom.hex(10)
   end
 
   def create
     response_hash = {
       action: 'order_placed',
-      order: order_params
+      order: order_params,
+      next_id: SecureRandom.hex(10)
     }
 
     sns = Aws::SNS::Resource.new(
