@@ -30,10 +30,10 @@
 
 .results-panel {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
   grid-template-rows: auto;
   grid-template-areas:
-    "Orders ServiceLog"
+    "Placed Grilled Condiments Wrapped Completed"
 }
 
 .Orders {
@@ -46,7 +46,15 @@
   margin-right: 10%;
 }
 
-#orders-list, #service-log-list {
+.OrderItem {
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  padding: 2px;
+  margin-bottom: 5px;
+  background-color: whitesmoke;
+}
+
+.OrderColumn {
   padding: 15px;
   list-style-type: none;
   height: 40vh;

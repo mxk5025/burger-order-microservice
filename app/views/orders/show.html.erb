@@ -10,7 +10,10 @@
     <% end %>
   </div>
   <div class="results-panel">
-    <%= react_component("Orders", {:style => "grid-area: Orders"}) %>
-    <%= react_component("ServiceLog", {:style => "grid-area: ServiceLog"}) %>
+    <%= react_component("QueueColumn", { name: "Placed", style: "grid-area: Placed"})%>
+    <%= react_component("QueueColumn", { name: "Grilled", style: "grid-area: Grilled"})%>
+    <%= react_component("QueueColumn", { name: "Condiments", style: "grid-area: Condiments"})%>
+    <%= react_component("QueueColumn", { name: "Wrapped", style: "grid-area: Wrapped"})%>
+    <%= react_component("QueueColumn", { name: "Completed", style: "grid-area: Completed"})%>
   </div>
 </div>

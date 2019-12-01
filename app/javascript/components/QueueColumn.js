@@ -1,13 +1,13 @@
 import React from "react";
 import Typography from '@material-ui/core/Typography';
 
-export default function Orders() {
+export default function QueueColumn({name}) {
   return (
     <div className="Orders">
       <Typography variant="h5" component="h5" align="center">
-        Order Status
+        {name} Status
       </Typography>
-      <ul id="orders-list">
+      <ul id={name + "-list"} className="OrderColumn">
       </ul>
     </div>
   );
