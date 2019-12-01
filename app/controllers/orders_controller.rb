@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :receive_completed
+  skip_before_action :verify_authenticity_token, only: [:receive_completed, :receive_grilled, :receive_condiments_applied, :receive_wrapped]
   def show
     @order = Order.new
     @initial_order_id = SecureRandom.hex(10)
@@ -34,7 +34,31 @@ class OrdersController < ApplicationController
   def receive_completed
     response_hash = {
       action: 'order_completed',
-      order: order_completed_params
+      order: order_updated_params
+    }
+    ActionCable.server.broadcast 'order_screen_channel', content: response_hash
+  end
+
+  def receive_grilled
+    response_hash = {
+      action: 'order_grilled',
+      order: order_updated_params
+    }
+    ActionCable.server.broadcast 'order_screen_channel', content: response_hash
+  end
+
+  def receive_condiments_applied
+    response_hash = {
+      action: 'order_condiments_applied',
+      order: order_updated_params
+    }
+    ActionCable.server.broadcast 'order_screen_channel', content: response_hash
+  end
+
+  def receive_wrapped
+    response_hash = {
+      action: 'order_wrapped',
+      order: order_updated_params
     }
     ActionCable.server.broadcast 'order_screen_channel', content: response_hash
   end
@@ -45,7 +69,7 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:id, :name)
   end
 
-  def order_completed_params
+  def order_updated_params
     params.require(:order).permit(:id)
   end
 end

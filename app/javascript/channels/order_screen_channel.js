@@ -14,19 +14,37 @@ consumer.subscriptions.create("OrderScreenChannel", {
   received(data) {
     const action = data.content.action;
 
-    if (action === 'order_placed') {
-      // Reset the Order Form
-      $('#new_order').trigger('reset');
+    switch (action) {
+      case 'order_placed':
+        // Reset the Order Form
+        $('#new_order').trigger('reset');
 
-      // Update the Order Id for next order
-      let newId = data.content.next_id
-      $('#order_id').val(newId);
+        // Update the Order Id for next order
+        let newId = data.content.next_id
+        $('#order_id').val(newId);
 
-      // Add the Order to the Placed list
-      $('#orders-list').append(createOrderItem(data.content.order));
-    } else if (action === 'order_completed') {
-      console.log('order has been marked completed');
-      completeOrderItem(data.content.order);
+        // Add the Order to the Placed list
+        $('#orders-list').append(createOrderItem(data.content.order));
+        break;
+      case 'order_grilled':
+        console.log('order grilled')
+        // move list item around
+        break;
+      case 'order_condiments_applied':
+        console.log('order condiments')
+        // move list item around
+        break;
+      case 'order_wrapped':
+        console.log('order wrapped')
+        // move list item around
+        break;
+      case 'order_completed':
+        console.log('order has been marked completed');
+        completeOrderItem(data.content.order);
+        break;
+      default:
+        console.log("unknown action");
+        break;
     }
   }
 });
