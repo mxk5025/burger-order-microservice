@@ -17,10 +17,22 @@ class OrdersController < ApplicationController
       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     )
+
+    # Send to the Order Queue
     queue_name = 'order.fifo'
     queue_url = sqs.get_queue_url(queue_name: queue_name).queue_url
     sqs.send_message({
       queue_url: queue_url,
+      message_body: order_params.to_s,
+      message_deduplication_id: SecureRandom.hex,
+      message_group_id: 'prod'
+    })
+
+    # Send to the POS Queue
+    pos_queue_name = 'pos.fifo'
+    pos_queue_url = sqs.get_queue_url(queue_name: pos_queue_name).queue_url
+    sqs.send_message({
+      queue_url: pos_queue_url,
       message_body: order_params.to_s,
       message_deduplication_id: SecureRandom.hex,
       message_group_id: 'prod'
