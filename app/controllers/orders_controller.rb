@@ -12,16 +12,18 @@ class OrdersController < ApplicationController
       next_id: SecureRandom.hex(10)
     }
 
-    sns = Aws::SNS::Resource.new(
+    sqs = Aws::SQS::Client.new(
       region: 'us-east-2',
       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     )
-
-    topic = sns.topic(ENV['AWS_SNS_ARN'])
-
-    topic.publish({
-      message: order_params.to_s
+    queue_name = 'order.fifo'
+    queue_url = sqs.get_queue_url(queue_name: queue_name).queue_url
+    sqs.send_message({
+      queue_url: queue_url,
+      message_body: order_params.to_s,
+      message_deduplication_id: SecureRandom.hex,
+      message_group_id: 'prod'
     })
 
     # Tell the channel an order has been placed
