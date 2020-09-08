@@ -11,12 +11,7 @@ All technical design documentation and presentations can be found in a privately
 In this demonstration, we show how long it takes to complete orders before and after auto-scaling kicks in. Each order is timed at the end with how long it took to complete. Each clip is scaled at 4x the original speed.
 
 ### Before
-<!-- ![Before Auto-scaling](doc/OnePer-4xSpeed.mp4) -->
-<video width="320" height="240" controls>
-  <source src="doc/OnePer-4xSpeed.mp4" type="video/mp4">
-</video>
+![Before Auto-scaling](doc/OnePer-4xSpeed.gif)
+
 ### After
-<!-- ![After Auto-scaling](doc/FullyScaled-4xSpeed.mp4) -->
-<video width="320" height="240" controls>
-  <source src="doc/FullyScaled-4xSpeed.mp4" type="video/mp4">
-</video>
+![After Auto-scaling](doc/FullyScaled-4xSpeed.gif)
